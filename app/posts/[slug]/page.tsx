@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { posts, type PhotoItem } from "../../../data/posts";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
@@ -22,12 +22,10 @@ function getAlignClass(index: number) {
   return index % 2 === 0 ? "ml-0" : "ml-auto";
 }
 
-export default function PostPage({ params }: Props) {
-  const { slug } = params;
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
-
   if (!post) return notFound();
-
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
       <header className="mb-20 flex items-center justify-between">
@@ -38,19 +36,16 @@ export default function PostPage({ params }: Props) {
           Index
         </Link>
       </header>
-
       <section className="mb-24 max-w-2xl">
         <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
-        <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
+        <h1 className="text-3xl font-light tracking-wide md:text-4xl">
           {post.title}
         </h1>
-
         <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
           {post.intro.map((line, index) => (
             <p key={index}>{line}</p>
           ))}
         </div>
-
         <div className="mt-10">
           <Link
             href={`/posts/${post.slug}/information`}
@@ -60,7 +55,6 @@ export default function PostPage({ params }: Props) {
           </Link>
         </div>
       </section>
-
       <section className="mx-auto max-w-6xl columns-1 gap-x-16 md:columns-2">
         {post.photos.map((photo, index) => (
           <div key={photo.slug} className="mb-16 break-inside-avoid">
