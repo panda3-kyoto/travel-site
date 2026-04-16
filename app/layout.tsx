@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif_JP, Inter } from "next/font/google";
 import "./globals.css";
+import Sidebar from "./Sidebar";
 
 const serif = Noto_Serif_JP({
   subsets: ["latin"],
@@ -29,9 +30,9 @@ export default function RootLayout({
       className={`${serif.variable} ${sans.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-white text-neutral-900">
-        {children}
+        <Sidebar />
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );
 }
-

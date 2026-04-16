@@ -38,7 +38,7 @@ export default async function PostPage({ params }: Props) {
       </header>
       <section className="mb-24 max-w-2xl">
         <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
-        <h1 className="text-3xl font-light tracking-wide md:text-4xl">
+        <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
           {post.title}
         </h1>
         <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
