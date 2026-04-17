@@ -4,8 +4,19 @@ import Link from "next/link";
 import { useState } from "react";
 import { posts } from "../data/posts";
 
+const groupedByCountry = posts.reduce((acc, post) => {
+  if (!acc[post.country]) {
+    acc[post.country] = [];
+  }
+  acc[post.country].push(post);
+  return acc;
+}, {} as Record<string, typeof posts>);
+
+const sortedCountries = Object.keys(groupedByCountry).sort();
+
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const [expandedCountry, setExpandedCountry] = useState<string | null>(null);
 
   return (
     <>
@@ -28,7 +39,7 @@ export default function Sidebar() {
       )}
 
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-full w-64 bg-white z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -50,35 +61,54 @@ export default function Sidebar() {
                 className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
               >
                 Home
-                <div>
-  <Link
-    href="/world-map"
-    onClick={() => setOpen(false)}
-    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
-  >
-    World Map
-  </Link>
-</div>
               </Link>
             </div>
+
+            <div>
+              <Link
+                href="/world-map"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+              >
+                World Map
+              </Link>
+            </div>
+
             <div>
               <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-4">
                 Index
               </p>
               <div className="space-y-3">
-                {posts.map((post) => (
-                  <Link
-                    key={post.slug}
-                    href={`/posts/${post.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="block text-sm text-neutral-700 hover:text-neutral-900 transition"
-                  >
-                    {post.title}
-                    <span className="ml-2 text-neutral-400 text-xs">
-                      {post.country}
-                    </span>
-                  </Link>
-                ))}
+                {sortedCountries.map((country) => {
+                  const countryPosts = groupedByCountry[country];
+                  return (
+                    <div key={country}>
+                      <button
+                        onClick={() => setExpandedCountry(expandedCountry === country ? null : country)}
+                        className="flex items-center justify-between w-full text-sm text-neutral-700 hover:text-neutral-900 transition"
+                      >
+                        <span>{country}</span>
+                        <span className="text-neutral-400 text-xs ml-2">
+                          {expandedCountry === country ? "−" : "+"}
+                        </span>
+                      </button>
+                      {expandedCountry === country && (
+                        <div className="mt-2 ml-3 space-y-2">
+                          {countryPosts.map((post) => (
+                            <Link
+                              key={post.slug}
+                              href={`/posts/${post.slug}`}
+                              onClick={() => setOpen(false)}
+                              className="block text-xs text-neutral-500 hover:text-neutral-900 transition"
+                            >
+                              {post.title}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </nav>
@@ -87,4 +117,3 @@ export default function Sidebar() {
     </>
   );
 }
-        
