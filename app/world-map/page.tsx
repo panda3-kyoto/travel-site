@@ -17,7 +17,7 @@ const countryPosts = posts.reduce((acc, post) => {
 
 const visitedCodes = Object.keys(countryPosts);
 
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const GEO_URL = "/world-110m.json";
 
 const countryCodeToNumeric: Record<string, string> = {
   IN: "356", TH: "764", VN: "704", UZ: "860", TJ: "762",
