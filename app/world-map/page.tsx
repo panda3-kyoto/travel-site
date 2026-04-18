@@ -49,7 +49,10 @@ const countryCenters: Record<string, CountryCenter> = {
 const defaultView: CountryCenter = { center: [30, 20], zoom: 1 };
 
 export default function WorldMapPage() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !sessionStorage.getItem("worldMapVisited");
+  });
   const [selected, setSelected] = useState<string | null>(null);
   const [currentView, setCurrentView] = useState<CountryCenter>(defaultView);
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
@@ -92,7 +95,10 @@ export default function WorldMapPage() {
 
   return (
     <>
-      {showIntro && <WorldMapIntro onComplete={() => setShowIntro(false)} />}
+    {showIntro && <WorldMapIntro onComplete={() => {
+  sessionStorage.setItem("worldMapVisited", "true");
+  setShowIntro(false);
+}} />}
 
       <main
         className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10"
