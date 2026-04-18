@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_JP, Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./Sidebar";
+import FadeIn from "./FadeIn";
 
 const serif = Noto_Serif_JP({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-white text-neutral-900">
         <Sidebar />
-        <div className="pt-20">{children}</div>
+        <div className="pt-20">
+          <FadeIn>{children}</FadeIn>
+        </div>
       </body>
     </html>
   );

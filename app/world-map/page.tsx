@@ -40,9 +40,10 @@ export default function WorldMapPage() {
 
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
-      <section className="mb-8 max-w-2xl">
-        <h1 className="text-3xl font-light tracking-[0.04em]">World Map</h1>
-      </section>
+<section className="mb-8 w-full flex items-center justify-between">
+  <h1 className="text-sm tracking-[0.12em] uppercase">World Map</h1>
+  <Link href="/" className="text-sm text-neutral-500">Home</Link>
+</section>
 
       <div className="relative w-full">
         {/* 地図 */}

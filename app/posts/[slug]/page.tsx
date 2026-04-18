@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts, type PhotoItem } from "../../../data/posts";
+import MiniMap from "../../components/MiniMap";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -26,6 +27,7 @@ export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
   if (!post) return notFound();
+
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
       <header className="mb-20 flex items-center justify-between">
@@ -36,25 +38,38 @@ export default async function PostPage({ params }: Props) {
           Index
         </Link>
       </header>
-      <section className="mb-24 max-w-2xl">
-        <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
-        <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
-          {post.title}
-        </h1>
-        <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
-          {post.intro.map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </div>
-        <div className="mt-10">
-          <Link
-            href={`/posts/${post.slug}/information`}
-            className="text-sm tracking-[0.14em] uppercase text-neutral-300 transition hover:text-neutral-500"
-          >
-            Information
-          </Link>
-        </div>
-      </section>
+
+      <section className="mb-24 flex gap-16 items-start">
+  <div className="max-w-2xl flex-1">
+    <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
+    <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
+      {post.title}
+    </h1>
+    <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
+      {post.intro.map((line, index) => (
+        <p key={index}>{line}</p>
+      ))}
+    </div>
+    <div className="mt-10">
+      <Link
+        href={`/posts/${post.slug}/information`}
+        className="text-sm tracking-[0.14em] uppercase text-neutral-300 transition hover:text-neutral-500"
+      >
+        Information
+      </Link>
+    </div>
+  </div>
+
+  {post.coordinates && (
+    <div className="hidden md:flex flex-1 justify-end" style={{ marginTop: "-220px" }}>
+      <MiniMap
+        countryCode={post.countryCode}
+        coordinates={post.coordinates}
+      />
+    </div>
+  )}
+</section>
+
       <section className="mx-auto max-w-6xl columns-1 gap-x-16 md:columns-2">
         {post.photos.map((photo, index) => (
           <div key={photo.slug} className="mb-16 break-inside-avoid">

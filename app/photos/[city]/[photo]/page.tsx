@@ -22,6 +22,7 @@ export default async function PhotoPage({ params }: Props) {
   const photoData = cityData.photos.find((item) => item.slug === photo);
   if (!photoData) return notFound();
   const [title, ...body] = photoData.note;
+
   return (
     <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
       <header className="mb-12 flex items-center justify-between">

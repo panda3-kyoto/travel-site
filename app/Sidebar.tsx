@@ -84,13 +84,13 @@ export default function Sidebar() {
                   return (
                     <div key={country}>
                       <button
-                        onClick={() => setExpandedCountry(expandedCountry === country ? null : country)}
+                        onClick={() => {
+                          setOpen(false);
+                          window.location.href = `/country/${countryPosts[0].countryCode.toLowerCase()}`;
+                        }}
                         className="flex items-center justify-between w-full text-sm text-neutral-700 hover:text-neutral-900 transition"
                       >
                         <span>{country}</span>
-                        <span className="text-neutral-400 text-xs ml-2">
-                          {expandedCountry === country ? "−" : "+"}
-                        </span>
                       </button>
                       {expandedCountry === country && (
                         <div className="mt-2 ml-3 space-y-2">

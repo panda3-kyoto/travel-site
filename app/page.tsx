@@ -201,10 +201,10 @@ export default function Home() {
 
       {/* メインコンテンツ */}
       <main className="min-h-screen bg-white text-neutral-900 px-6 py-6 md:px-8 md:py-8">
-        <header className="mb-10 flex items-center justify-between">
-          <h1 className="text-sm tracking-[0.12em] uppercase">Travel Notes</h1>
-          <Link href="/posts" className="text-sm text-neutral-500">Index</Link>
-        </header>
+      <header className="mb-10 flex items-center justify-between">
+  <h1 className="text-sm tracking-[0.12em] uppercase">Travel Notes</h1>
+  <Link href="/world-map" className="text-sm text-neutral-500">World Map</Link>
+</header>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         {posts.map((post, index) => (
             <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
