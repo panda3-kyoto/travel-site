@@ -39,8 +39,7 @@ export default async function PhotoPage({ params }: Props) {
   alt={photoData.alt}
   className="block h-auto mx-auto"
   style={{
-    width: photoData.orientation === "portrait" ? "55%" : "100%",
-    maxHeight: photoData.orientation === "portrait" ? "80vh" : "none",
+    width: photoData.orientation === "portrait" ? "75%" : "100%",
   }}
 />
         <div className="mt-10 max-w-2xl">
