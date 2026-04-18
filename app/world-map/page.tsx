@@ -211,58 +211,55 @@ export default function WorldMapPage() {
             </ZoomableGroup>
           </ComposableMap>
 
-          {/* モバイル用国リスト */}
-          <div className="mt-12 md:hidden">
-            <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-6">Index</p>
-            <div className="grid grid-cols-2 gap-3">
-              {Object.entries(countryPosts).sort(([a], [b]) => a.localeCompare(b)).map(([code, data]) => (
-                <button
-                  key={code}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelected(selected === code ? null : code);
-                  }}
-                  className={`text-left px-4 py-3 border text-sm transition ${
-                    selected === code
-                      ? "border-neutral-900 text-neutral-900"
-                      : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
-                  }`}
-                >
-                  {data.name}
-                </button>
-              ))}
-            </div>
+         {/* モバイル用国リスト */}
+<div className="mt-12 md:hidden">
+  <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-6">Index</p>
+  <div className="space-y-2">
+    {Object.entries(countryPosts).sort(([a], [b]) => a.localeCompare(b)).map(([code, data]) => (
+      <div key={code}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelected(selected === code ? null : code);
+          }}
+          className={`w-full text-left px-4 py-3 border text-sm transition ${
+            selected === code
+              ? "border-neutral-900 text-neutral-900"
+              : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
+          }`}
+        >
+          {data.name}
+        </button>
 
-            {selectedData && (
-              <div className="mt-6" onClick={(e) => e.stopPropagation()}>
-                <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-4">
-                  {selectedData.name}
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  {selectedData.posts.map((post) => (
-                    <Link
-                      key={post.slug}
-                      href={`/posts/${post.slug}`}
-                      className="block relative aspect-[3/2] overflow-hidden"
-                    >
-                      <img
-                        src={post.cover}
-                        alt={post.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-white/50" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <p className="text-xs tracking-[0.08em] text-neutral-700">
-                          {post.title}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+        {selected === code && (
+          <div className="mt-2 mb-2 grid grid-cols-2 gap-2">
+            {data.posts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/posts/${post.slug}`}
+                className="block relative aspect-[3/2] overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={post.cover}
+                  alt={post.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-white/50" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <p className="text-xs tracking-[0.08em] text-neutral-700">
+                    {post.title}
+                  </p>
                 </div>
-              </div>
-            )}
+              </Link>
+            ))}
           </div>
-        </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+</div>
       </main>
     </>
   );
