@@ -45,3 +45,7 @@ body {
     opacity: 1;
   }
 }
+
+.rsm-zoomable-group {
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}

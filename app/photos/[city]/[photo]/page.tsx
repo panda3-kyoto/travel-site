@@ -34,7 +34,15 @@ export default async function PhotoPage({ params }: Props) {
         </Link>
       </header>
       <article className="mx-auto max-w-5xl">
-        <img src={photoData.image} alt={photoData.alt} className="block w-full h-auto" />
+      <img
+  src={photoData.image}
+  alt={photoData.alt}
+  className="block h-auto mx-auto"
+  style={{
+    width: photoData.orientation === "portrait" ? "55%" : "100%",
+    maxHeight: photoData.orientation === "portrait" ? "80vh" : "none",
+  }}
+/>
         <div className="mt-10 max-w-2xl">
           <p className="text-sm text-neutral-400">
             {cityData.title} / {cityData.country}
