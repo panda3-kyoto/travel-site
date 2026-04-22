@@ -109,7 +109,9 @@ export const posts: Post[] = [
     coordinates: { lat: 13.1, lng: 80.3 },
     excerpt: "",
     cover: "/images/chennai/cover.jpeg",
-    intro: [],
+    intro: ["南インド最大の都市、チェンナイ。かつてマドラスと呼ばれたこの街は、色鮮やかなルンギを履く男性で溢れていた。",
+      "訛りの激しいインド英語に困惑し、30分の入国審査を終えて広がっていたのは、混沌そのものだった。"
+    ],
     photos: [
       { slug: "p1", image: "/images/chennai/1.jpeg", alt: "Chennai photo 1", orientation: "landscape", size: "medium", note: ["test"] },
       { slug: "p2", image: "/images/chennai/2.jpeg", alt: "Chennai photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -131,7 +133,7 @@ export const posts: Post[] = [
     coordinates: { lat: 22.6, lng: 88.4 },
     excerpt: "",
     cover: "/images/kolkata/cover.jpeg",
-    intro: [],
+    intro: ["イギリス領時代の首都コルカタ。","首都カルカッタの名に恥じない、威厳を感じる街であった"],
     photos: [
       { slug: "p1", image: "/images/kolkata/1.jpeg", alt: "Kolkata photo 1", orientation: "landscape", size: "large", note: ["test"] },
       { slug: "p2", image: "/images/kolkata/2.jpeg", alt: "Kolkata photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -152,7 +154,7 @@ export const posts: Post[] = [
     coordinates: { lat: 24.7, lng: 84.9 },
     excerpt: "",
     cover: "/images/bodhgaya/cover.jpeg",
-    intro: [],
+    intro: ["ブッダが悟りを開いた地。","インド旅の疲労がこの地で爆発し、菩提樹の下で瞑想をするように頭痛と闘っていた。"],
     photos: [
       { slug: "p1", image: "/images/bodhgaya/1.jpeg", alt: "Bodh Gaya photo 1", orientation: "landscape", size: "large", note: ["test"] },
       { slug: "p2", image: "/images/bodhgaya/2.jpeg", alt: "Bodh Gaya photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -172,8 +174,8 @@ export const posts: Post[] = [
     excerpt: "熱気と湿度の中で、街の速さと軽やかさが同時にあった。",
     cover: "/images/bangkok/cover.jpeg",
     intro: [
-      "混沌という言葉では足りないくらい、すべてが軽やかに流れていた。",
-      "速さの中にある柔らかさが、この街の印象として残っている。",
+      "愛するカオマンガイ。サイアムの街並みは東京よりも都会であった。",
+      "しかし、大きなビルの間には、スラムがあり、そこにも生活があった。",
     ],
     photos: [
       { slug: "p1", image: "/images/bangkok/1.jpeg", alt: "Bangkok photo 1", orientation: "landscape", size: "large", note: ["test"] },
@@ -295,7 +297,7 @@ export const posts: Post[] = [
     coordinates: { lat: 10.8, lng: 106.7 },
     excerpt: "",
     cover: "/images/hochiminhcity/cover.jpeg",
-    intro: [],
+    intro: ["大都会ホーチミン。","以前は歩道をバイクが走っていたが、最近法律が厳しくなり、安全になっていた。"],
     photos: [],
     information: [],
   },
@@ -342,7 +344,7 @@ export const posts: Post[] = [
     coordinates: { lat: 2.2, lng: 102.2 },
     excerpt: "",
     cover: "/images/melaka/cover.jpeg",
-    intro: [],
+    intro: ["深夜特急を読み、ふとマラッカの夕日を見てみたくなった。"],
     photos: [],
     information: [],
   },
