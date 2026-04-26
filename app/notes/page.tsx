@@ -27,9 +27,7 @@ export default function NotesPage() {
               <h2 className="text-lg font-light tracking-[0.03em] text-neutral-800 group-hover:opacity-60 transition">
                 {note.title}
               </h2>
-              <p className="mt-2 text-sm text-neutral-500 leading-7">
-                {note.body[0]}
-              </p>
+            
             </Link>
           ))}
         </div>

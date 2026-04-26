@@ -75,34 +75,45 @@ export default function Sidebar() {
             </div>
 
             <div>
- <Link
-    href="/themes"
- onClick={() => setOpen(false)}
- className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
-  >
-Themes
-</Link>
-</div>
+              <Link
+                href="/random"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+              >
+                Random
+              </Link>
+            </div>
 
-<div>
-  <Link
-    href="/notes"
-    onClick={() => setOpen(false)}
-    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
-  >
-    Notes
-  </Link>
-</div>
+            <div>
+              <Link
+                href="/themes"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+              >
+                Themes
+              </Link>
+            </div>
 
-<div>
-  <Link
-    href="/about"
-    onClick={() => setOpen(false)}
-    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
-  >
-    About
-  </Link>
-</div>
+            <div>
+              <Link
+                href="/notes"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+              >
+                Notes
+              </Link>
+            </div>
+
+            <div>
+              <Link
+                href="/about"
+                onClick={() => setOpen(false)}
+                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+              >
+                About
+              </Link>
+            </div>
+
             <div>
               <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-4">
                 Index
