@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Cat, Utensils, Building2, Sunset, Plane, Trees, User } from "lucide-react";
+import { Cat, Utensils, Building2, Sunset, Plane, Trees, User, Church, ShoppingBag, Moon, Waves, UserRound, Baby } from "lucide-react";
 
 type Theme = {
   slug: string;
@@ -18,6 +18,12 @@ const themes: Theme[] = [
   { slug: "plane", label: "Travel", icon: Plane },
   { slug: "nature", label: "Nature", icon: Trees },
   { slug: "people", label: "People", icon: User },
+  { slug: "temple", label: "Temple", icon: Church },
+  { slug: "market", label: "Market", icon: ShoppingBag },
+  { slug: "night", label: "Night", icon: Moon },
+  { slug: "water", label: "Water", icon: Waves },
+  { slug: "portrait", label: "Portrait", icon: UserRound },
+  { slug: "child", label: "Child", icon: Baby },
 ];
 
 type FloatingItem = {
@@ -37,15 +43,19 @@ export default function ThemesPage() {
   useEffect(() => {
     const W = window.innerWidth;
     const H = window.innerHeight;
+    const isMobile = W < 768;
+    const baseSize = isMobile ? 50 : 90;
+    const sizeRange = isMobile ? 20 : 60;
+    const speed = isMobile ? 0.4 : 1.5;
 
     const initial: FloatingItem[] = themes.map((theme) => {
-      const size = 180 + Math.random() * 60;
+      const size = baseSize + Math.random() * sizeRange;
       return {
         theme,
         x: Math.random() * (W - size),
         y: Math.random() * (H - size),
-        vx: (Math.random() - 0.5) * 8.0,
-        vy: (Math.random() - 0.5) * 8.0,
+        vx: (Math.random() - 0.5) * speed,
+        vy: (Math.random() - 0.5) * speed,
         size,
       };
     });
@@ -92,7 +102,7 @@ export default function ThemesPage() {
             >
               <Icon
                 size={f.size}
-                strokeWidth={0.5}
+                strokeWidth={0.3}
                 className="text-neutral-300 group-hover:text-neutral-600 transition-colors duration-300"
               />
             </button>

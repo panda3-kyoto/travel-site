@@ -30,6 +30,17 @@ export type Post = {
   information: InfoItem[];
 };
 
+export type KyotoSeason = {
+  season: "spring" | "summer" | "autumn" | "winter";
+  cover: string;
+  photos: PhotoItem[];
+  color: string;
+};
+
+export type KyotoPost = Post & {
+  seasons?: KyotoSeason[];
+};
+
 export const posts: Post[] = [
   {
     slug: "delhi",
