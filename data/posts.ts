@@ -28,17 +28,12 @@ export type Post = {
   intro: string[];
   photos: PhotoItem[];
   information: InfoItem[];
+  seasons?: KyotoSeason[];
 };
 
 export type KyotoSeason = {
-  season: "spring" | "summer" | "autumn" | "winter";
-  cover: string;
+  slug: "spring" | "summer" | "autumn" | "winter";
   photos: PhotoItem[];
-  color: string;
-};
-
-export type KyotoPost = Post & {
-  seasons?: KyotoSeason[];
 };
 
 export const posts: Post[] = [
@@ -80,11 +75,10 @@ export const posts: Post[] = [
     cover: "/images/agra/cover.jpeg",
     intro: ["タージマハルの街、アグラへ。", "デリーの喧騒さとは対照的に、観光地らしい落ち着いた空気が流れていた。"],
     photos: [
-
       { slug: "p1", image: "/images/agra/1.jpeg", alt: "Agra photo 1", orientation: "landscape", size: "large", note: ["いざ、タージ・マハルへ。", "大量の客引き、ガイド、カメラマンの勧誘を振り切り、目に映ったタージマハルは、インドとは思えぬ美しさだった。"] },
-      { slug: "p2", image: "/images/agra/2.jpeg", alt: "Agra photo 2", orientation: "portrait", size: "medium", note: ["酷暑","アグラはデリーより暑い。", "灼熱の中、タージ・マハルを眺める。"] },
-      { slug: "p3", image: "/images/agra/3.jpeg", alt: "Agra photo 3", orientation: "landscape", size: "medium", note: ["アグラ城塞にて","インド人は写真を撮られるのが好きなようだ。"] },
-      { slug: "p4", image: "/images/agra/4.jpeg", alt: "Agra photo 4", orientation: "landscape", size: "medium", note: ["シャー・ジャハーン","幽閉されたシャー・ジャハーンはここで何を思っていたのだろうか。", "同じ場所でタージ・マハルを眺め考えていた。"] },
+      { slug: "p2", image: "/images/agra/2.jpeg", alt: "Agra photo 2", orientation: "portrait", size: "medium", note: ["酷暑", "アグラはデリーより暑い。", "灼熱の中、タージ・マハルを眺める。"] },
+      { slug: "p3", image: "/images/agra/3.jpeg", alt: "Agra photo 3", orientation: "landscape", size: "medium", note: ["アグラ城塞にて", "インド人は写真を撮られるのが好きなようだ。"] },
+      { slug: "p4", image: "/images/agra/4.jpeg", alt: "Agra photo 4", orientation: "landscape", size: "medium", note: ["シャー・ジャハーン", "幽閉されたシャー・ジャハーンはここで何を思っていたのだろうか。", "同じ場所でタージ・マハルを眺め考えていた。"] },
     ],
     information: [],
   },
@@ -120,9 +114,7 @@ export const posts: Post[] = [
     coordinates: { lat: 13.1, lng: 80.3 },
     excerpt: "",
     cover: "/images/chennai/cover.jpeg",
-    intro: ["南インド最大の都市、チェンナイ。かつてマドラスと呼ばれたこの街は、色鮮やかなルンギを履く男性で溢れていた。",
-      "訛りの激しいインド英語に困惑し、30分の入国審査を終えて広がっていたのは、混沌そのものだった。"
-    ],
+    intro: ["南インド最大の都市、チェンナイ。かつてマドラスと呼ばれたこの街は、色鮮やかなルンギを履く男性で溢れていた。", "訛りの激しいインド英語に困惑し、30分の入国審査を終えて広がっていたのは、混沌そのものだった。"],
     photos: [
       { slug: "p1", image: "/images/chennai/1.jpeg", alt: "Chennai photo 1", orientation: "landscape", size: "medium", note: ["test"] },
       { slug: "p2", image: "/images/chennai/2.jpeg", alt: "Chennai photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -144,7 +136,7 @@ export const posts: Post[] = [
     coordinates: { lat: 22.6, lng: 88.4 },
     excerpt: "",
     cover: "/images/kolkata/cover.jpeg",
-    intro: ["イギリス領時代の首都コルカタ。","首都カルカッタの名に恥じない、威厳を感じる街であった"],
+    intro: ["イギリス領時代の首都コルカタ。", "首都カルカッタの名に恥じない、威厳を感じる街であった"],
     photos: [
       { slug: "p1", image: "/images/kolkata/1.jpeg", alt: "Kolkata photo 1", orientation: "landscape", size: "large", note: ["test"] },
       { slug: "p2", image: "/images/kolkata/2.jpeg", alt: "Kolkata photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -165,7 +157,7 @@ export const posts: Post[] = [
     coordinates: { lat: 24.7, lng: 84.9 },
     excerpt: "",
     cover: "/images/bodhgaya/cover.jpeg",
-    intro: ["ブッダが悟りを開いた地。","インド旅の疲労がこの地で爆発し、菩提樹の下で瞑想をするように頭痛と闘っていた。"],
+    intro: ["ブッダが悟りを開いた地。", "インド旅の疲労がこの地で爆発し、菩提樹の下で瞑想をするように頭痛と闘っていた。"],
     photos: [
       { slug: "p1", image: "/images/bodhgaya/1.jpeg", alt: "Bodh Gaya photo 1", orientation: "landscape", size: "large", note: ["test"] },
       { slug: "p2", image: "/images/bodhgaya/2.jpeg", alt: "Bodh Gaya photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -308,8 +300,16 @@ export const posts: Post[] = [
     coordinates: { lat: 10.8, lng: 106.7 },
     excerpt: "",
     cover: "/images/hochiminhcity/cover.jpeg",
-    intro: ["大都会ホーチミン。","以前は歩道をバイクが走っていたが、最近法律が厳しくなり、安全になっていた。"],
-    photos: [],
+    intro: ["大都会ホーチミン。", "以前は歩道をバイクが走っていたが、最近法律が厳しくなり、安全になっていた。"],
+    photos: [
+      { slug: "p1", image: "/images/hochiminhcity/1.jpeg", alt: "Ho Chi Minh photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/hochiminhcity/2.jpeg", alt: "Ho Chi Minh photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/hochiminhcity/3.jpeg", alt: "Ho Chi Minh photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/hochiminhcity/4.jpeg", alt: "Ho Chi Minh photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/hochiminhcity/5.jpeg", alt: "Ho Chi Minh photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/hochiminhcity/6.jpeg", alt: "Ho Chi Minh photo 6", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p7", image: "/images/hochiminhcity/7.jpeg", alt: "Ho Chi Minh photo 7", orientation: "landscape", size: "medium", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -320,7 +320,7 @@ export const posts: Post[] = [
     coordinates: { lat: 5.4, lng: 100.3 },
     excerpt: "",
     cover: "/images/penang/cover.jpeg",
-    intro: ["ペナン、そこは穏やかでゆっくりとした時間が流れる場所だった。","多くの旅人がこの場所を訪れ、心を癒していったのだろうと思う。"],
+    intro: ["ペナン、そこは穏やかでゆっくりとした時間が流れる場所だった。", "多くの旅人がこの場所を訪れ、心を癒していったのだろうと思う。"],
     photos: [
       { slug: "p1", image: "/images/penang/1.jpeg", alt: "Penang photo 1", orientation: "landscape", size: "large", note: ["test"] },
       { slug: "p2", image: "/images/penang/2.jpeg", alt: "Penang photo 2", orientation: "portrait", size: "medium", note: ["test"] },
@@ -344,7 +344,15 @@ export const posts: Post[] = [
     excerpt: "",
     cover: "/images/kualalumpur/cover.jpeg",
     intro: [],
-    photos: [],
+    photos: [
+      { slug: "p1", image: "/images/kualalumpur/1.jpeg", alt: "Kuala Lumpur photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/kualalumpur/2.jpeg", alt: "Kuala Lumpur photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/kualalumpur/3.jpeg", alt: "Kuala Lumpur photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/kualalumpur/4.jpeg", alt: "Kuala Lumpur photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/kualalumpur/5.jpeg", alt: "Kuala Lumpur photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/kualalumpur/6.jpeg", alt: "Kuala Lumpur photo 6", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p7", image: "/images/kualalumpur/7.jpeg", alt: "Kuala Lumpur photo 7", orientation: "landscape", size: "medium", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -356,7 +364,14 @@ export const posts: Post[] = [
     excerpt: "",
     cover: "/images/melaka/cover.jpeg",
     intro: ["深夜特急を読み、ふとマラッカの夕日を見てみたくなった。"],
-    photos: [],
+    photos: [
+      { slug: "p1", image: "/images/melaka/1.jpeg", alt: "Melaka photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/melaka/2.jpeg", alt: "Melaka photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/melaka/3.jpeg", alt: "Melaka photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/melaka/4.jpeg", alt: "Melaka photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/melaka/5.jpeg", alt: "Melaka photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/melaka/6.jpeg", alt: "Melaka photo 6", orientation: "portrait", size: "large", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -430,6 +445,12 @@ export const posts: Post[] = [
     intro: [],
     photos: [],
     information: [],
+    seasons: [
+      { slug: "spring", photos: [] },
+      { slug: "summer", photos: [] },
+      { slug: "autumn", photos: [] },
+      { slug: "winter", photos: [] },
+    ],
   },
   {
     slug: "khiva",
@@ -440,7 +461,7 @@ export const posts: Post[] = [
     excerpt: "山の輪郭と霧の気配が静かに残った。",
     cover: "/images/khiva/cover.jpeg",
     intro: [
-      "シルクロードのオアシス都市、ヒヴァは、砂漠の中の宝石のような場所だった。",
+      "寝台列車で目を覚ますと、目に映る全てが砂漠の景色で満たされていた。",
     ],
     photos: [
       { slug: "p1", image: "/images/khiva/1.jpeg", alt: "khiva photo 1", orientation: "landscape", size: "medium", note: ["test"] },
@@ -483,7 +504,19 @@ export const posts: Post[] = [
     excerpt: "",
     cover: "/images/samarkand/cover.jpeg",
     intro: [],
-    photos: [],
+    photos: [
+      { slug: "p1", image: "/images/samarkand/1.jpeg", alt: "Samarkand photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/samarkand/2.jpeg", alt: "Samarkand photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/samarkand/3.jpeg", alt: "Samarkand photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/samarkand/4.jpeg", alt: "Samarkand photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/samarkand/5.jpeg", alt: "Samarkand photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/samarkand/6.jpeg", alt: "Samarkand photo 6", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p7", image: "/images/samarkand/7.jpeg", alt: "Samarkand photo 7", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p8", image: "/images/samarkand/8.jpeg", alt: "Samarkand photo 8", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p9", image: "/images/samarkand/9.jpeg", alt: "Samarkand photo 9", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p10", image: "/images/samarkand/10.jpeg", alt: "Samarkand photo 10", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p11", image: "/images/samarkand/11.jpeg", alt: "Samarkand photo 11", orientation: "landscape", size: "medium", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -495,7 +528,20 @@ export const posts: Post[] = [
     excerpt: "",
     cover: "/images/tashkent/cover.jpeg",
     intro: [],
-    photos: [],
+    photos: [
+      { slug: "p1", image: "/images/tashkent/1.jpeg", alt: "Tashkent photo 1", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p2", image: "/images/tashkent/2.jpeg", alt: "Tashkent photo 2", orientation: "portrait", size: "small", note: ["test"] },
+      { slug: "p3", image: "/images/tashkent/3.jpeg", alt: "Tashkent photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/tashkent/4.jpeg", alt: "Tashkent photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/tashkent/5.jpeg", alt: "Tashkent photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/tashkent/6.jpeg", alt: "Tashkent photo 6", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p7", image: "/images/tashkent/7.jpeg", alt: "Tashkent photo 7", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p8", image: "/images/tashkent/8.jpeg", alt: "Tashkent photo 8", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p9", image: "/images/tashkent/9.jpeg", alt: "Tashkent photo 9", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p10", image: "/images/tashkent/10.jpeg", alt: "Tashkent photo 10", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p11", image: "/images/tashkent/11.jpeg", alt: "Tashkent photo 11", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p12", image: "/images/tashkent/12.jpeg", alt: "Tashkent photo 12", orientation: "portrait", size: "large", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -507,7 +553,14 @@ export const posts: Post[] = [
     excerpt: "",
     cover: "/images/karakalpakstan/cover.jpeg",
     intro: [],
-    photos: [],
+    photos: [
+      { slug: "p1", image: "/images/karakalpakstan/1.jpeg", alt: "Karakalpakstan photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/karakalpakstan/2.jpeg", alt: "Karakalpakstan photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/karakalpakstan/3.jpeg", alt: "Karakalpakstan photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/karakalpakstan/4.jpeg", alt: "Karakalpakstan photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/karakalpakstan/5.jpeg", alt: "Karakalpakstan photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/karakalpakstan/6.jpeg", alt: "Karakalpakstan photo 6", orientation: "portrait", size: "large", note: ["test"] },
+    ],
     information: [],
   },
   {
@@ -523,8 +576,15 @@ export const posts: Post[] = [
       "中央アジア最貧国と言われるこの国で、豊かさとは何かと考えていた。",
     ],
     photos: [
-      { slug: "p1", image: "/images/sapa/1.jpeg", alt: "Sapa photo 1", orientation: "landscape", size: "medium", note: ["test"] },
-      { slug: "p2", image: "/images/sapa/2.jpeg", alt: "Sapa photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p1", image: "/images/panjikent/1.jpeg", alt: "Panjikent photo 1", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p2", image: "/images/panjikent/2.jpeg", alt: "Panjikent photo 2", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p3", image: "/images/panjikent/3.jpeg", alt: "Panjikent photo 3", orientation: "landscape", size: "large", note: ["test"] },
+      { slug: "p4", image: "/images/panjikent/4.jpeg", alt: "Panjikent photo 4", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p5", image: "/images/panjikent/5.jpeg", alt: "Panjikent photo 5", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p6", image: "/images/panjikent/6.jpeg", alt: "Panjikent photo 6", orientation: "portrait", size: "large", note: ["test"] },
+      { slug: "p7", image: "/images/panjikent/7.jpeg", alt: "Panjikent photo 7", orientation: "landscape", size: "medium", note: ["test"] },
+      { slug: "p8", image: "/images/panjikent/8.jpeg", alt: "Panjikent photo 8", orientation: "portrait", size: "medium", note: ["test"] },
+      { slug: "p9", image: "/images/panjikent/9.jpeg", alt: "Panjikent photo 9", orientation: "landscape", size: "large", note: ["test"] },
     ],
     information: [],
   },
