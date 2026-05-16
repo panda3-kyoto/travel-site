@@ -20,13 +20,15 @@ const countryCodeToNumeric: Record<string, string> = {
 type Props = {
   countryCode: string;
   coordinates: { lat: number; lng: number };
+  small?: boolean;
 };
 
-export default function MiniMap({ countryCode, coordinates }: Props) {
+export default function MiniMap({ countryCode, coordinates, small = false }: Props) {
   const numericId = countryCodeToNumeric[countryCode];
+  const width = small ? "180px" : "840px";
 
   return (
-    <div style={{ width: "840px", opacity: 0.7 }}>
+    <div style={{ width, opacity: 0.7 }}>
       <ComposableMap
         projectionConfig={{
           scale: getScale(countryCode),
@@ -58,7 +60,7 @@ export default function MiniMap({ countryCode, coordinates }: Props) {
           }
         </Geographies>
         <Marker coordinates={[coordinates.lng, coordinates.lat]}>
-          <circle r={3} fill="#171717" />
+          <circle r={small ? 5 : 3} fill="#171717" />
         </Marker>
       </ComposableMap>
     </div>

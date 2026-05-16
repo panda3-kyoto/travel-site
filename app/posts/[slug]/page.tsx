@@ -40,35 +40,46 @@ export default async function PostPage({ params }: Props) {
       </header>
 
       <section className="mb-24 flex gap-16 items-start">
-  <div className="max-w-2xl flex-1">
-    <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
-    <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
-      {post.title}
-    </h1>
-    <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
-      {post.intro.map((line, index) => (
-        <p key={index}>{line}</p>
-      ))}
-    </div>
-    <div className="mt-10">
-      <Link
-        href={`/posts/${post.slug}/information`}
-        className="text-sm tracking-[0.14em] uppercase text-neutral-300 transition hover:text-neutral-500"
-      >
-        Information
-      </Link>
-    </div>
-  </div>
+        <div className="max-w-2xl flex-1">
+          <p className="mb-3 text-sm text-neutral-400">{post.country}</p>
+          <h1 className="text-3xl font-light tracking-[0.04em] md:text-4xl">
+            {post.title}
+          </h1>
+          <div className="mt-8 space-y-4 text-sm leading-8 text-neutral-600">
+            {post.intro.map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
+          </div>
+          <div className="mt-10">
+            <Link
+              href={`/posts/${post.slug}/information`}
+              className="text-sm tracking-[0.14em] uppercase text-neutral-300 transition hover:text-neutral-500"
+            >
+              Information
+            </Link>
+          </div>
+        </div>
 
-  {post.coordinates && (
-    <div className="hidden md:flex flex-1 justify-end" style={{ marginTop: "-220px" }}>
-      <MiniMap
-        countryCode={post.countryCode}
-        coordinates={post.coordinates}
-      />
-    </div>
-  )}
-</section>
+        {post.coordinates && (
+          <>
+            {/* PC */}
+            <div className="hidden md:flex flex-1 justify-end" style={{ marginTop: "-220px" }}>
+              <MiniMap
+                countryCode={post.countryCode}
+                coordinates={post.coordinates}
+              />
+            </div>
+            {/* スマホ */}
+            <div className="block md:hidden flex-shrink-0" style={{ marginTop: "-20px" }}>
+              <MiniMap
+                countryCode={post.countryCode}
+                coordinates={post.coordinates}
+                small
+              />
+            </div>
+          </>
+        )}
+      </section>
 
       <section className="mx-auto max-w-6xl columns-1 gap-x-16 md:columns-2">
         {post.photos.map((photo, index) => (

@@ -84,15 +84,6 @@ export default function Sidebar() {
               </Link>
             </div>
 
-            <div>
-              <Link
-                href="/themes"
-                onClick={() => setOpen(false)}
-                className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
-              >
-                Themes
-              </Link>
-            </div>
 
             <div>
               <Link
