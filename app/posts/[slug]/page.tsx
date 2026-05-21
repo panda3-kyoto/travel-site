@@ -69,14 +69,7 @@ export default async function PostPage({ params }: Props) {
                 coordinates={post.coordinates}
               />
             </div>
-            {/* スマホ */}
-            <div className="block md:hidden flex-shrink-0" style={{ marginTop: "-20px" }}>
-              <MiniMap
-                countryCode={post.countryCode}
-                coordinates={post.coordinates}
-                small
-              />
-            </div>
+
           </>
         )}
       </section>

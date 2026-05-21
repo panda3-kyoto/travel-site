@@ -5,6 +5,17 @@ import Link from "next/link";
 import { posts } from "../data/posts";
 import { useEffect, useState } from "react";
 
+const countryOrder: string[] = [];
+const groupedByCountry: Record<string, typeof posts> = {};
+
+for (const post of posts) {
+  if (!groupedByCountry[post.country]) {
+    groupedByCountry[post.country] = [];
+    countryOrder.push(post.country);
+  }
+  groupedByCountry[post.country].push(post);
+}
+
 export default function Home() {
   const [phase, setPhase] = useState<"text" | "fading" | "done">("done");
 
@@ -53,13 +64,14 @@ export default function Home() {
         </div>
       )}
 
-      {/* メインコンテンツ */}
       <main className="min-h-screen bg-white text-neutral-900 px-6 py-6 md:px-8 md:py-8">
         <header className="mb-10 flex items-center justify-between">
           <h1 className="text-sm tracking-[0.12em] uppercase">Travel Notes</h1>
           <Link href="/world-map" className="text-sm text-neutral-500">World Map</Link>
         </header>
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+
+        {/* PC：グリッドレイアウト */}
+        <section className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {posts.map((post, index) => (
             <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
               <div className="relative aspect-[3/2] overflow-hidden bg-neutral-100">
@@ -75,7 +87,7 @@ export default function Home() {
                     alt={post.title}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 1200px) 50vw, 33vw"
                     priority={post.slug === "delhi"}
                   />
                 </div>
@@ -90,6 +102,56 @@ export default function Home() {
             </Link>
           ))}
         </section>
+
+        {/* スマホ：国別横スクロール */}
+        <div className="md:hidden space-y-10">
+          {countryOrder.map((country) => (
+            <section key={country}>
+              <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-4">
+                {country}
+              </p>
+              <div
+                className="flex gap-3 overflow-x-auto pb-2"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {groupedByCountry[country].map((post, index) => (
+                  <Link
+                    key={post.slug}
+                    href={`/posts/${post.slug}`}
+                    className="flex-shrink-0 block"
+                    style={{ width: "60vw" }}
+                  >
+                    <div className="relative aspect-[3/2] overflow-hidden bg-neutral-100">
+                      <div
+                        className="absolute inset-0 drift"
+                        style={{
+                          animationDuration: `${12 + index * 2}s`,
+                          animationDelay: `${index * 0.4}s`,
+                        }}
+                      >
+                        <Image
+                          src={post.cover}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                          sizes="60vw"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-black/10" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <h2 className="text-white/80 text-sm tracking-[0.08em] font-light">
+                            {post.title}
+                          </h2>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </main>
     </>
   );
