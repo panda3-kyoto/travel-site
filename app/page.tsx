@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { posts } from "../data/posts";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const countryOrder: string[] = [];
 const groupedByCountry: Record<string, typeof posts> = {};
@@ -18,13 +19,18 @@ for (const post of posts) {
 
 export default function Home() {
   const [phase, setPhase] = useState<"text" | "fading" | "done">("done");
+  const router = useRouter();
 
   useEffect(() => {
     if (sessionStorage.getItem("visited")) return;
     sessionStorage.setItem("visited", "true");
     setPhase("text");
     const t1 = setTimeout(() => setPhase("fading"), 2000);
-    const t2 = setTimeout(() => setPhase("done"), 3400);
+    const t2 = setTimeout(() => {
+      setPhase("done");
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) router.push("/explore");
+    }, 3400);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);

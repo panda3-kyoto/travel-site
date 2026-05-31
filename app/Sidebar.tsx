@@ -63,7 +63,15 @@ export default function Sidebar() {
                 Home
               </Link>
             </div>
-
+            <div>
+  <Link
+    href="/explore"
+    onClick={() => setOpen(false)}
+    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+  >
+    Explore
+  </Link>
+</div>
             <div>
               <Link
                 href="/world-map"
