@@ -19,6 +19,7 @@ const movieIds = [
   "843", //in the mood for love
   "11220", //天使の涙
   "965150", //aftersun
+  "116745", //LIFE
   "76", //before sunrise
   "80", //before sunset
   "1362949", //場所はいつも
