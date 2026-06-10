@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { posts } from "../../../../data/posts";
 
 const seasons = [
   { slug: "spring", label: "Spring", labelJa: "春", color: "#c9a0a0", bg: "#fdf6f0" },
@@ -21,6 +22,9 @@ export default async function KyotoSeasonPage({ params }: Props) {
   const seasonData = seasons.find((s) => s.slug === season);
   if (!seasonData) return notFound();
 
+  const kyotoPost = posts.find((p) => p.slug === "kyoto");
+  const seasonPhotos = kyotoPost?.seasons?.find((s) => s.slug === season)?.photos ?? [];
+
   return (
     <main
       className="min-h-screen px-8 py-8 md:px-12 md:py-10"
@@ -39,7 +43,7 @@ export default async function KyotoSeasonPage({ params }: Props) {
         </Link>
       </header>
 
-      <section className="max-w-2xl">
+      <section className="max-w-2xl mb-16">
         <p className="text-sm mb-3" style={{ color: seasonData.color, opacity: 0.7 }}>
           Kyoto / Japan
         </p>
@@ -52,10 +56,28 @@ export default async function KyotoSeasonPage({ params }: Props) {
         </h1>
       </section>
 
-      <section className="mt-16 mx-auto max-w-6xl columns-1 gap-x-16 md:columns-2">
-        <p className="text-sm" style={{ color: seasonData.color, opacity: 0.5 }}>
-          写真は準備中です。
-        </p>
+      <section className="mx-auto max-w-6xl columns-1 gap-x-16 md:columns-2">
+        {seasonPhotos.length === 0 ? (
+          <p className="text-sm" style={{ color: seasonData.color, opacity: 0.5 }}>
+            写真は準備中です。
+          </p>
+        ) : (
+          seasonPhotos.map((photo, index) => (
+            <div key={photo.slug} className="mb-16 break-inside-avoid">
+              <div className={`${
+                photo.size === "small" ? "w-[55%]" :
+                photo.size === "medium" ? "w-[78%]" : "w-full"
+              } ${index % 2 === 0 ? "ml-0" : "ml-auto"}`}>
+                <img
+                  src={photo.image}
+                  alt={photo.alt}
+                  className="block h-auto w-full"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          ))
+        )}
       </section>
     </main>
   );
