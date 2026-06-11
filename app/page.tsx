@@ -6,6 +6,13 @@ import { posts } from "../data/posts";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+const allCovers = posts
+  .map((p) => p.cover)
+  .concat(posts.flatMap((p) => p.photos.filter((ph) => ph.orientation === "landscape").map((ph) => ph.image)));
+const shuffled = [...allCovers].sort(() => Math.random() - 0.5);
+const randomCoversMobile = shuffled.slice(0, 14);
+const randomCoversDesktop = shuffled.slice(0, 24);
+
 const countryOrder: string[] = [];
 const groupedByCountry: Record<string, typeof posts> = {};
 
@@ -18,55 +25,79 @@ for (const post of posts) {
 }
 
 export default function Home() {
-  const [phase, setPhase] = useState<"text" | "fading" | "done">("done");
+  const [phase, setPhase] = useState<"text" | "fading" | "done">("text");
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (sessionStorage.getItem("visited")) return;
+    setIsMobile(window.innerWidth < 768);
+    if (sessionStorage.getItem("visited")) {
+      setPhase("done");
+      return;
+    }
     sessionStorage.setItem("visited", "true");
-    setPhase("text");
-    const t1 = setTimeout(() => setPhase("fading"), 2000);
+    const t1 = setTimeout(() => setPhase("fading"), 5000);
     const t2 = setTimeout(() => {
       setPhase("done");
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) router.push("/explore");
-    }, 3400);
+      if (window.innerWidth < 768) router.push("/explore");
+    }, 6400);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
   }, []);
 
+  const randomCovers = isMobile ? randomCoversMobile : randomCoversDesktop;
+
   return (
     <>
       {phase !== "done" && (
         <div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center"
           style={{
             opacity: phase === "fading" ? 0 : 1,
             transition: phase === "fading" ? "opacity 1.4s ease-in-out" : "none",
           }}
         >
-          <p style={{
-            color: "#bbbbbb",
-            fontFamily: "var(--font-serif)",
-            letterSpacing: "0.5em",
-            fontSize: "11px",
-            textTransform: "uppercase",
-          }}>
-            Welcome to
-          </p>
-          <h1 style={{
-            marginTop: "16px",
-            color: "#999999",
-            fontFamily: "var(--font-serif)",
-            letterSpacing: "0.3em",
-            fontSize: "18px",
-            fontWeight: 300,
-            textTransform: "uppercase",
-          }}>
-            My Museum
-          </h1>
+          {/* 背景グリッド */}
+          <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-6 content-start gap-0">
+            {randomCovers.map((src, i) => (
+              <div key={i} className="relative aspect-[3/2] overflow-hidden">
+                <img
+                  src={src}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* オーバーレイ */}
+          <div className="absolute inset-0 bg-white/60" />
+
+          {/* テキスト */}
+          <div className="relative z-10 flex flex-col items-center">
+<p style={{
+  color: "rgba(255,255,255,0.7)",
+  fontFamily: "var(--font-serif)",
+  letterSpacing: "0.5em",
+  fontSize: "11px",
+  textTransform: "uppercase",
+}}>
+  Welcome to
+</p>
+<h1 style={{
+  marginTop: "16px",
+  color: "rgba(255,255,255,0.85)",
+  fontFamily: "var(--font-serif)",
+  letterSpacing: "0.3em",
+  fontSize: "18px",
+  fontWeight: 300,
+  textTransform: "uppercase",
+}}>
+  My Museum
+</h1>
+          </div>
         </div>
       )}
 
@@ -82,7 +113,7 @@ export default function Home() {
             <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
               <div className="relative aspect-[3/2] overflow-hidden bg-neutral-100">
                 <div
-                  className="absolute inset-0 drift"
+                  className="absolute inset-0 bg-black/40"
                   style={{
                     animationDuration: `${12 + index * 2}s`,
                     animationDelay: `${index * 0.4}s`,

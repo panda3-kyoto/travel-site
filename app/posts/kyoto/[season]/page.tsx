@@ -68,12 +68,16 @@ export default async function KyotoSeasonPage({ params }: Props) {
                 photo.size === "small" ? "w-[55%]" :
                 photo.size === "medium" ? "w-[78%]" : "w-full"
               } ${index % 2 === 0 ? "ml-0" : "ml-auto"}`}>
-                <img
-                  src={photo.image}
-                  alt={photo.alt}
-                  className="block h-auto w-full"
-                  loading="lazy"
-                />
+                <Link href={`/photos/kyoto-${season}/${photo.slug}`} className="group block">
+                  <div className="translate-y-0 transition duration-700 ease-in-out group-hover:-translate-y-1">
+                    <img
+                      src={photo.image}
+                      alt={photo.alt}
+                      className="block h-auto w-full transition duration-700 group-hover:opacity-95"
+                      loading="lazy"
+                    />
+                  </div>
+                </Link>
               </div>
             </div>
           ))

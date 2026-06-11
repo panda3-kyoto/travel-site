@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const seasons = [
   {
@@ -36,84 +36,23 @@ const seasons = [
 
 export default function KyotoPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fadingIndex, setFadingIndex] = useState<number | null>(null);
-  const isTransitioning = useRef(false);
-  const lastScrollTime = useRef(0);
-  const touchStartY = useRef(0);
-
-  useEffect(() => {
-    const transition = (direction: number) => {
-      if (isTransitioning.current) return;
-      const now = Date.now();
-      if (now - lastScrollTime.current < 1400) return;
-
-      const nextIndex = Math.min(
-        Math.max(currentIndex + direction, 0),
-        seasons.length - 1
-      );
-      if (nextIndex === currentIndex) return;
-
-      lastScrollTime.current = now;
-      isTransitioning.current = true;
-      setFadingIndex(nextIndex);
-      setTimeout(() => {
-        setCurrentIndex(nextIndex);
-        setFadingIndex(null);
-        isTransitioning.current = false;
-      }, 1000);
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      const direction = e.deltaY > 0 ? 1 : -1;
-      transition(direction);
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      const diff = touchStartY.current - e.changedTouches[0].clientY;
-      if (Math.abs(diff) < 50) return;
-      const direction = diff > 0 ? 1 : -1;
-      transition(direction);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: true });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [currentIndex]);
-
   const season = seasons[currentIndex];
+
+  const prev = () => setCurrentIndex((i) => Math.max(i - 1, 0));
+  const next = () => setCurrentIndex((i) => Math.min(i + 1, seasons.length - 1));
 
   return (
     <div className="fixed inset-0">
       <img
         src={`/images/kyoto/${season.slug}.jpeg`}
         alt={season.label}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+        key={season.slug}
       />
-
-      {fadingIndex !== null && fadingIndex >= 0 && fadingIndex < seasons.length && (
-        <img
-          src={`/images/kyoto/${seasons[fadingIndex].slug}.jpeg`}
-          alt={seasons[fadingIndex].label}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            opacity: 1,
-            animation: "fadeIn 1s ease-in-out",
-          }}
-        />
-      )}
 
       <div className="absolute inset-0 bg-black/15" />
 
+      {/* 中央テキスト＋リンク */}
       <Link
         href={`/posts/kyoto/${season.slug}`}
         className="absolute inset-0 flex flex-col items-center justify-center gap-4"
@@ -159,6 +98,29 @@ export default function KyotoPage() {
         </div>
       </Link>
 
+      {/* 左矢印 */}
+      {currentIndex > 0 && (
+        <button
+          onClick={prev}
+          className="absolute left-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/90 transition text-5xl"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          ‹
+        </button>
+      )}
+
+      {/* 右矢印 */}
+      {currentIndex < seasons.length - 1 && (
+        <button
+          onClick={next}
+          className="absolute right-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/90 transition text-5xl"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          ›
+        </button>
+      )}
+
+      {/* ヘッダー */}
       <header className="absolute top-0 left-0 right-0 px-8 py-8 flex items-center justify-between pointer-events-none">
         <span className="text-sm tracking-[0.12em] uppercase text-white/60">
           Kyoto
@@ -171,15 +133,14 @@ export default function KyotoPage() {
         </Link>
       </header>
 
+      {/* インジケーター */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none">
         {seasons.map((_, i) => (
           <div
             key={i}
             className="w-1 h-1 rounded-full transition-all duration-500"
             style={{
-              background: i === currentIndex
-                ? "rgba(255,255,255,0.8)"
-                : "rgba(255,255,255,0.3)",
+              background: i === currentIndex ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.3)",
             }}
           />
         ))}

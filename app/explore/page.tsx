@@ -11,6 +11,7 @@ type FloatingItem = {
   y: number;
   vx: number;
   vy: number;
+  width: number;
 };
 
 const items = [
@@ -21,6 +22,9 @@ const items = [
   { id: "movie", label: "Movie", href: "/movie" },
   { id: "about", label: "About", href: "/about" },
 ];
+
+const ITEM_HEIGHT = 30;
+const ITEM_WIDTH = 140;
 
 export default function ExplorePage() {
   const [floaters, setFloaters] = useState<FloatingItem[]>([]);
@@ -33,10 +37,11 @@ export default function ExplorePage() {
 
     const initial: FloatingItem[] = items.map((item) => ({
       ...item,
-      x: Math.random() * (W - 120),
-      y: Math.random() * (H - 40),
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
+      width: ITEM_WIDTH,
+      x: Math.random() * (W - ITEM_WIDTH),
+      y: 80 + Math.random() * (H - 80 - ITEM_HEIGHT - 40),
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
     }));
 
     setFloaters(initial);
@@ -49,8 +54,10 @@ export default function ExplorePage() {
           let { x, y, vx, vy } = f;
           x += vx;
           y += vy;
-          if (x < 0 || x + 120 > W) vx = -vx;
-          if (y < 0 || y + 40 > H) vy = -vy;
+          if (x < 0) { x = 0; vx = Math.abs(vx); }
+          if (x + ITEM_WIDTH > W) { x = W - ITEM_WIDTH; vx = -Math.abs(vx); }
+          if (y < 80) { y = 80; vy = Math.abs(vy); }
+          if (y + ITEM_HEIGHT > H - 40) { y = H - 40 - ITEM_HEIGHT; vy = -Math.abs(vy); }
           return { ...f, x, y, vx, vy };
         })
       );

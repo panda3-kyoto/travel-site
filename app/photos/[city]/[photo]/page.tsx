@@ -7,20 +7,78 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return posts.flatMap((post) =>
+  const normal = posts.flatMap((post) =>
     post.photos.map((item) => ({
       city: post.slug,
       photo: item.slug,
     }))
   );
+
+  const kyoto = posts.find((p) => p.slug === "kyoto");
+  const seasonal = kyoto?.seasons?.flatMap((season) =>
+    season.photos.map((item) => ({
+      city: `kyoto-${season.slug}`,
+      photo: item.slug,
+    }))
+  ) ?? [];
+
+  return [...normal, ...seasonal];
 }
 
 export default async function PhotoPage({ params }: Props) {
   const { city, photo } = await params;
+
+  // 京都シーズン別の場合
+  const kyotoSeasonMatch = city.match(/^kyoto-(spring|summer|autumn|winter)$/);
+  if (kyotoSeasonMatch) {
+    const seasonSlug = kyotoSeasonMatch[1];
+    const kyotoPost = posts.find((p) => p.slug === "kyoto");
+    const seasonData = kyotoPost?.seasons?.find((s) => s.slug === seasonSlug);
+    const photoData = seasonData?.photos.find((item) => item.slug === photo);
+    if (!photoData) return notFound();
+
+    const [title, ...body] = photoData.note;
+    const seasonLabel = { spring: "春", summer: "夏", autumn: "秋", winter: "冬" }[seasonSlug];
+
+    return (
+      <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
+        <header className="mb-12 flex items-center justify-between">
+          <Link href={`/posts/kyoto/${seasonSlug}`} className="text-sm tracking-[0.12em] uppercase">
+            Kyoto — {seasonLabel}
+          </Link>
+          <Link href="/" className="text-sm text-neutral-500">
+            Home
+          </Link>
+        </header>
+        <article className="mx-auto max-w-5xl">
+          <img
+            src={photoData.image}
+            alt={photoData.alt}
+            className="block h-auto mx-auto"
+            style={{
+              width: photoData.orientation === "portrait" ? "75%" : "100%",
+            }}
+          />
+          <div className="mt-10 max-w-2xl">
+            <p className="text-sm text-neutral-400">Kyoto / Japan</p>
+            <h1 className="mt-2 text-lg tracking-[0.03em] text-neutral-800">{title}</h1>
+            <div className="mt-4 space-y-3 text-sm leading-8 text-neutral-600">
+              {body.map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
+            </div>
+          </div>
+        </article>
+      </main>
+    );
+  }
+
+  // 通常の都市の場合
   const cityData = posts.find((p) => p.slug === city);
   if (!cityData) return notFound();
   const photoData = cityData.photos.find((item) => item.slug === photo);
   if (!photoData) return notFound();
+
   const [title, ...body] = photoData.note;
 
   return (
@@ -34,14 +92,14 @@ export default async function PhotoPage({ params }: Props) {
         </Link>
       </header>
       <article className="mx-auto max-w-5xl">
-      <img
-  src={photoData.image}
-  alt={photoData.alt}
-  className="block h-auto mx-auto"
-  style={{
-    width: photoData.orientation === "portrait" ? "75%" : "100%",
-  }}
-/>
+        <img
+          src={photoData.image}
+          alt={photoData.alt}
+          className="block h-auto mx-auto"
+          style={{
+            width: photoData.orientation === "portrait" ? "75%" : "100%",
+          }}
+        />
         <div className="mt-10 max-w-2xl">
           <p className="text-sm text-neutral-400">
             {cityData.title} / {cityData.country}
