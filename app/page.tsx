@@ -11,7 +11,7 @@ const allCovers = posts
   .concat(posts.flatMap((p) => p.photos.filter((ph) => ph.orientation === "landscape").map((ph) => ph.image)));
 const shuffled = [...allCovers].sort(() => Math.random() - 0.5);
 const randomCoversMobile = shuffled.slice(0, 14);
-const randomCoversDesktop = shuffled.slice(0, 24);
+const randomCoversDesktop = shuffled.slice(0, 42);
 
 const countryOrder: string[] = [];
 const groupedByCountry: Record<string, typeof posts> = {};
@@ -36,11 +36,11 @@ export default function Home() {
       return;
     }
     sessionStorage.setItem("visited", "true");
-    const t1 = setTimeout(() => setPhase("fading"), 5000);
+    const t1 = setTimeout(() => setPhase("fading"), 4000);
     const t2 = setTimeout(() => {
       setPhase("done");
       if (window.innerWidth < 768) router.push("/explore");
-    }, 6400);
+    }, 5400);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -60,7 +60,7 @@ export default function Home() {
           }}
         >
           {/* 背景グリッド */}
-          <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-6 content-start gap-0">
+          <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-6 content-start gap-0 overflow-hidden">
             {randomCovers.map((src, i) => (
               <div key={i} className="relative aspect-[3/2] overflow-hidden">
                 <img
@@ -73,30 +73,30 @@ export default function Home() {
           </div>
 
           {/* オーバーレイ */}
-          <div className="absolute inset-0 bg-white/60" />
+          <div className="absolute inset-0 bg-black/50" />
 
           {/* テキスト */}
           <div className="relative z-10 flex flex-col items-center">
-<p style={{
-  color: "rgba(255,255,255,0.7)",
-  fontFamily: "var(--font-serif)",
-  letterSpacing: "0.5em",
-  fontSize: "11px",
-  textTransform: "uppercase",
-}}>
-  Welcome to
-</p>
-<h1 style={{
-  marginTop: "16px",
-  color: "rgba(255,255,255,0.85)",
-  fontFamily: "var(--font-serif)",
-  letterSpacing: "0.3em",
-  fontSize: "18px",
-  fontWeight: 300,
-  textTransform: "uppercase",
-}}>
-  My Museum
-</h1>
+            <p style={{
+              color: "rgba(255,255,255,0.7)",
+              fontFamily: "var(--font-serif)",
+              letterSpacing: "0.5em",
+              fontSize: "11px",
+              textTransform: "uppercase",
+            }}>
+              Welcome to
+            </p>
+            <h1 style={{
+              marginTop: "16px",
+              color: "rgba(255,255,255,0.85)",
+              fontFamily: "var(--font-serif)",
+              letterSpacing: "0.3em",
+              fontSize: "18px",
+              fontWeight: 300,
+              textTransform: "uppercase",
+            }}>
+              My Museum
+            </h1>
           </div>
         </div>
       )}
@@ -113,7 +113,7 @@ export default function Home() {
             <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
               <div className="relative aspect-[3/2] overflow-hidden bg-neutral-100">
                 <div
-                  className="absolute inset-0 bg-black/40"
+                  className="absolute inset-0 drift"
                   style={{
                     animationDuration: `${12 + index * 2}s`,
                     animationDelay: `${index * 0.4}s`,
