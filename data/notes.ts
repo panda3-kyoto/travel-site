@@ -120,5 +120,20 @@ export type Note = {
         "POPEYEの最新刊を買った。ボリュームすごすぎる、図鑑かよ。ひさしぶりに読むとおもしろい。",
       ]
     },
+    {
+      slug: "thirteenth",
+      title: "national anthem",
+      date: "2026-06-21",
+      body: [
+        "Before World Cup matches, the national anthem is played throughout the stadium. A friend of mine from abroad once told me that Japan's anthem is 'pretty cool.'",
+        "In Japan, it sometimes feels as though many people are hesitant to take pride in their country or even in the national anthem. Of course, I understand that there are historical reasons and different perspectives behind this. Still, I sometimes find it strange that simply loving one's country or being proud of it can be dismissed as something overly nationalistic.",
+        "That said, I was not always attached to Japan myself. Before I started backpacking alone, I tended to think that everything overseas was somehow cooler. Like many people, I vaguely imagined myself becoming someone who could 'work globally.'",
+        "But traveling the world on my own completely changed the way I saw my country. In many places, Japan was genuinely respected. People trusted Japanese products, and there was a strong sense of goodwill built over decades through Japan's international cooperation and development assistance. I was also often told that Japanese people are polite and kind.",
+        "And each time, I found myself thinking: What an incredible country this is.",
+        "I'm not trying to make a political statement. I simply love this country.",
+        "And I hope that, in whatever small way I can, I can contribute to building a Japan where we—and the generations that follow us—can continue to take pride in who we are and where we come from.",
+
+      ]
+    },
   ];
 
