@@ -21,6 +21,7 @@ const GEO_URL = "/world-110m.json";
 const countryCodeToNumeric: Record<string, string> = {
   IN: "356", TH: "764", VN: "704", UZ: "860", TJ: "762",
   TR: "792", TW: "158", KH: "116", MY: "458", JP: "392",
+  HR: "191", BA: "070", KR: "410", ME: "499", AL: "008", MK: "807",
 };
 
 const numericToCode: Record<string, string> = Object.fromEntries(
@@ -43,6 +44,13 @@ const countryCenters: Record<string, CountryCenter> = {
   KH: { center: [105, 12], zoom: 8 },
   MY: { center: [110, 4], zoom: 6 },
   JP: { center: [136, 36], zoom: 5 },
+  HR: { center: [16, 45], zoom: 8 },
+  BA: { center: [17.8, 44], zoom: 10 },
+  KR: { center: [127.8, 36.3], zoom: 8 },
+  ME: { center: [19.3, 42.8], zoom: 16 },
+  AL: { center: [20, 41], zoom: 12 },
+  MK: { center: [21.7, 41.6], zoom: 14 },
+  XK: { center: [20.9, 42.6], zoom: 18 },
 };
 
 const defaultView: CountryCenter = { center: [30, 20], zoom: 1 };
@@ -56,7 +64,9 @@ export default function WorldMapPage() {
   const selectedData = selected ? countryPosts[selected] : null;
 
   useEffect(() => {
-    const target = selected ? countryCenters[selected] : defaultView;
+    const target = selected
+      ? countryCenters[selected] ?? defaultView
+      : defaultView;
     const fromCenter: [number, number] = [...currentView.center] as [number, number];
     const fromZoom = currentView.zoom;
     let start: number | null = null;
@@ -125,7 +135,10 @@ export default function WorldMapPage() {
             <Geographies geography={GEO_URL}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  const code = numericToCode[geo.id];
+                  // コソボは数字IDが無いので名前で判定
+                  const code =
+                    numericToCode[geo.id] ??
+                    (geo.properties.name === "Kosovo" ? "XK" : undefined);
                   const isVisited = code && visitedCodes.includes(code);
                   const isSelected = code && selected === code;
 
@@ -135,7 +148,7 @@ export default function WorldMapPage() {
                       geography={geo}
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (isVisited) setSelected(isSelected ? null : code);
+                        if (isVisited) setSelected(isSelected ? null : code!);
                       }}
                       style={{
                         default: {

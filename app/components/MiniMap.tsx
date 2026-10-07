@@ -15,6 +15,12 @@ const countryCodeToNumeric: Record<string, string> = {
   KH: "116",
   MY: "458",
   JP: "392",
+  HR: "191",
+  BA: "070",
+  KR: "410",
+  ME: "499",
+  AL: "008",
+  MK: "807",
 };
 
 type Props = {
@@ -39,7 +45,11 @@ export default function MiniMap({ countryCode, coordinates, small = false }: Pro
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const isTarget = geo.id === numericId;
+              // コソボは数字IDが無いので名前で判定
+              const isTarget =
+                countryCode === "XK"
+                  ? geo.properties.name === "Kosovo"
+                  : geo.id === numericId;
               return (
                 <Geography
                   key={geo.rsmKey}
@@ -79,6 +89,13 @@ function getScale(countryCode: string): number {
     KH: 1200,
     MY: 800,
     JP: 600,
+    HR: 1500,
+    BA: 2500,
+    KR: 1800,
+    ME: 4000,
+    AL: 3000,
+    MK: 4000,
+    XK: 6000,
   };
   return scales[countryCode] || 600;
 }
