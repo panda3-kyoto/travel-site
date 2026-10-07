@@ -111,6 +111,27 @@ export default function Sidebar() {
     Movie
   </Link>
 </div>
+
+<div>
+  <Link
+    href="/music"
+    onClick={() => setOpen(false)}
+    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+  >
+    Music
+  </Link>
+</div>
+
+<div>
+  <Link
+    href="/book"
+    onClick={() => setOpen(false)}
+    className="text-sm tracking-[0.12em] uppercase text-neutral-900 hover:opacity-60 transition"
+  >
+    Book
+  </Link>
+</div>
+
             <div>
               <Link
                 href="/about"

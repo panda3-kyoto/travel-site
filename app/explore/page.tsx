@@ -20,6 +20,8 @@ const items = [
   { id: "random", label: "Random", href: "/random" },
   { id: "notes", label: "Notes", href: "/notes" },
   { id: "movie", label: "Movie", href: "/movie" },
+  { id: "music", label: "Music", href: "/music" },
+  { id: "book", label: "Book", href: "/book" },
   { id: "about", label: "About", href: "/about" },
 ];
 

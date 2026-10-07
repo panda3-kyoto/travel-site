@@ -11,7 +11,7 @@ export default function AboutPage() {
 
       <section className="max-w-2xl">
         {/* 写真プレースホルダー */}
-        <div className="mb-12 w-48 h-48 overflow-hidden">
+     <div className="mb-12 w-48 h-48 overflow-hidden">
   <img
     src="/images/about/profile.jpeg"
     alt="Profile"
@@ -19,21 +19,23 @@ export default function AboutPage() {
   />
 </div>
 
-        <h1 className="text-3xl font-light tracking-[0.04em] mb-2">สมชาย</h1>
-        <p className="text-sm text-neutral-400 tracking-[0.08em] mb-12">Somchai</p>
+        <h1 className="text-3xl font-light tracking-[0.04em] mb-2">Shun Sato</h1>
+        <p className="text-sm text-neutral-400 tracking-[0.08em] mb-12">สมชาย</p>
 
         <div className="space-y-6 text-sm leading-8 text-neutral-600">
-          <p>旅する大学院生。バックパッカー旅が好き。
-            </p>somchaiとはタイで「太郎」的に使われる名前で「男らしい」みたいな意味らしい。<p></p>
+          <p>旅する大学院生。無駄に増えた肩書きのせいで生きづらくなった時、誰も相手にしてくれない海外へと旅に出る。
+            瞬間に存在する感情を切り取りたくて、文章と写真をはじめた、らしい。
+            </p>somchaiとはタイで太郎的な名前で、「男らしい」みたいな意味らしい。かっこいいよな。<p></p>
           <p>
             気の向くままに旅をして、気の向くままに写真を撮っている。
-            このサイトは、そんな旅の記録。
+            このサイトは、そんな旅の記録、と思ったが欲が出てきたので、自分の人生をミュージアムにしてやろう！
           </p>
         </div>
 
         <div className="mt-16 space-y-4">
           <p className="text-xs text-neutral-400 tracking-[0.12em] uppercase mb-6">Gear</p>
           <div className="space-y-2 text-sm text-neutral-600">
+            <p>FUJIFILM XT30-iii</p>
             <p>Canon EOS Kiss X10</p>
             <p>iPhone 16</p>
           </div>
