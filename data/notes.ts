@@ -120,5 +120,55 @@ export type Note = {
         "POPEYEの最新刊を買った。ボリュームすごすぎる、図鑑かよ。ひさしぶりに読むとおもしろい。",
       ]
     },
-  ];
+    {
+      slug: "thirteenth",
+      title: "national anthem",
+      date: "2026-06-21",
+      body: [
+        "Before World Cup matches, the national anthem is played throughout the stadium. A friend of mine from abroad once told me that Japan's anthem is 'pretty cool.'",
+        "In Japan, it sometimes feels as though many people are hesitant to take pride in their country or even in the national anthem. Of course, I understand that there are historical reasons and different perspectives behind this. Still, I sometimes find it strange that simply loving one's country or being proud of it can be dismissed as something overly nationalistic.",
+        "That said, I was not always attached to Japan myself. Before I started backpacking alone, I tended to think that everything overseas was somehow cooler. Like many people, I vaguely imagined myself becoming someone who could 'work globally.'",
+        "But traveling the world on my own completely changed the way I saw my country. In many places, Japan was genuinely respected. People trusted Japanese products, and there was a strong sense of goodwill built over decades through Japan's international cooperation and development assistance. I was also often told that Japanese people are polite and kind.",
+        "And each time, I found myself thinking: What an incredible country this is.",
+        "I'm not trying to make a political statement. I simply love this country.",
+        "And I hope that, in whatever small way I can, I can contribute to building a Japan where we—and the generations that follow us—can continue to take pride in who we are and where we come from.",
 
+      ]
+    },
+    {
+      slug: "fourteenth",
+      title: "last summer!",
+      date: "2026-07-05",
+      body: [
+        "祇園囃子の音が聞こえた。夏が来た。",
+        "京都の夏、湿気、暑さ、夕立、これらのおかげであまり好きにはなれなかった。でも、これが最後の夏だと思うと、どこか恋しく、切なくなる。",
+        "人だらけの祇園祭、鴨川デルタでする花火、下鴨神社の古本市と御手洗祭り。京都で見つけた青春の断片たち。",
+        "学生時代を京都で過ごせたことが、人生において何よりも宝であった、最近、そう思う。初めてこの地に来た時は、一人暮らしの不安と、大学生活の不安でいっぱいだった。コロナで移動も制限され、ほとんどの時間を家で過ごしていた。",
+        "いつのことだっただろうか、気がつくと鴨川に行くようになり、京都の街を歩くようになり、「生活する」ということを習得したようだった。",
+        "もうすぐ、京都を離れる。新しい街に生活に馴染めるのだろうか、そんな不安を抱えながら、京都で過ごす最後の夏を飽きるまで満喫したい。",
+        "と、いいつつ、本能で航空券を予約してしまった。自称バックパッカー、1年ぶりに旅に出ます。"
+      ],
+    },
+    {
+      slug: "fifteenth",
+      title: "影",
+      date: "2026-07-09",
+      body: ["アスファルトに映る影が夏の到来を教えてくれた。", "梅雨が明け、強い日差しと湿気に包まれ、五感の全てで夏を感じる。","京都のことは心の底から好きなのだが、唯一の欠点があって。それは近くに海がないことである。僕にとって夏は海であり、海は夏である。", 
+             "鴨川はどこまでいっても川であり、海にはなれない。潮の香り、波の音、砂浜の感触、それらすべてが最近の僕の人生には不足しているようだ。海に行きたい。", "そういえば最近気がついたこと。朝マックでメガマフィンを食べるときの幸福感に勝るものはない？"],
+    },
+    {
+      slug: "sixteenth",
+      title: "あの頃の思い出？",
+      date: "2026-07-11",
+      body: ["少年野球の声が聞こえてきた。母親たちの声援と、少年たちの歓声、金属バットの音が混ざりあう。","若気の至りとはよくいったもので、東京にきて若さゆえに酒を飲みすぎて酔っ払った日の翌日、とめどない吐き気と頭痛の嵐に襲われながら、ホテルのベッドで横たわっていた時だった。",
+"別に実家の近くにグラウンドがあったわけでも、少年野球をやっていただけでもない。が、混ざり合った声に懐かしさを覚える。同時にこみあげる夏の思い出。","夏休み、田園風景、小学校のプールに向かうための通学路、プールの後の塩素の匂い、エアコンで冷えた和室の畳の感触と匂い。","すべてがわすれられなくて、戻りたいと思う夏はやっぱりそこにあって、これをいつまでも探し続けるのだろう。そう考えながら、嵐に飲みこまれ、もう一度眠りにつくのであった。"],
+    },
+    {
+      slug: "seventeenth",
+      title: "jealous?",
+      date: "2026-07-12",
+      body: ["僕は何不自由なく育ってきた、みんながいくような習い事には通ってきたし、欲しいものも全てかはわからないが買ってもらったりお小遣いで買ったりする人生を送っていた。友人関係にも恵まれていた。自分の育った環境で見れば、相対的に裕福だったのかもしれない。そうじゃない人たちを見下して、一緒にされたくないという思いを持っていたかもしれない。","しかし、絶対的に金銭的・精神的自由がある人たちを前にして、原動力を見つけられなくなっている、気がしている。世の中には経験したことのないような暮らしをしている人たちがいて、しかもそれが世間的には一般であることに気がついていないような、それなのに純粋で心が濁っていない人たち。彼らをみていると、その瞳の眩しさに、その磨かれたガラスのような美しい心に反射する光に耐えきれなくなり、生きることの意味を見失ってしまう。心が濁ってゆく、嫉妬という名の濁流に飲み込まれる。",
+        "なんのために生きるのだろうか。initial endowmentが違いすぎて自分は何になれるんだろうか。現代社会は他者と比較してしまう機会が多い、特に僕はその傾向にあるだろう。他人と比較した際の優劣で気分が変動する、情けなさの塊。こんな人間でもできることがあるのだと、こんな人間だからこそできることがあるのだと、今もう人生を終えてしまっても問題がないと思っていたあの時の自分を救った全ての光を、いつか自分も誰かを救うその光になりたいと思っていたあの気持ちを、忘れずに生きていきたいのだけどな。前が見えない、曇り続ける世界。","","","",
+      "追記：　まあさ、優秀だと思うやつらは、見えるところでも見えないところでも努力しまくってるから、自分が弱いと思うなら、彼らに刺激を受けて前を向いて追い越す勢いで猛ダッシュすればいいんだよな。妬みとか、悲しさとか、そういう感情は走り続ける起爆剤にして走り続ける、どこまでも。そうして気づけば遠いところまで来ていて、それで人生を終えられれば幸せなのかもしれないから。"],
+    },
+  ];
