@@ -45,7 +45,7 @@ export default async function NotesPage() {
       </header>
 
       <section className="max-w-2xl">
-        <h1 className="text-3xl font-light tracking-[0.04em] mb-16">Notes</h1>
+        <h1 className="text-3xl font-light tracking-[0.04em] mb-16">雑記</h1>
         <div className="space-y-12">
           {notes.map((note) => (
             <Link key={note.id} href={`/notes/${note.id}`} className="block group">

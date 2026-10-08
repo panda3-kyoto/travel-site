@@ -6,12 +6,8 @@ import { posts } from "../data/posts";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const allCovers = posts
-  .map((p) => p.cover)
-  .concat(posts.flatMap((p) => p.photos.filter((ph) => ph.orientation === "landscape").map((ph) => ph.image)));
-const shuffled = [...allCovers].sort(() => Math.random() - 0.5);
-const randomCoversMobile = shuffled.slice(0, 14);
-const randomCoversDesktop = shuffled.slice(0, 42);
+// 各都市のcoverだけを固定順で使う（軽い・毎回同じ）
+const covers = posts.map((p) => p.cover);
 
 const countryOrder: string[] = [];
 const groupedByCountry: Record<string, typeof posts> = {};
@@ -47,7 +43,8 @@ export default function Home() {
     };
   }, []);
 
-  const randomCovers = isMobile ? randomCoversMobile : randomCoversDesktop;
+  // スマホは2列×7行=14枚、PCは6列×5行=30枚
+  const bgCovers = isMobile ? covers.slice(0, 14) : covers.slice(0, 30);
 
   return (
     <>
@@ -61,11 +58,12 @@ export default function Home() {
         >
           {/* 背景グリッド */}
           <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-6 content-start gap-0 overflow-hidden">
-            {randomCovers.map((src, i) => (
+            {bgCovers.map((src, i) => (
               <div key={i} className="relative aspect-[3/2] overflow-hidden">
                 <img
                   src={src}
                   alt=""
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -77,24 +75,28 @@ export default function Home() {
 
           {/* テキスト */}
           <div className="relative z-10 flex flex-col items-center">
-            <p style={{
-              color: "rgba(255,255,255,0.7)",
-              fontFamily: "var(--font-serif)",
-              letterSpacing: "0.5em",
-              fontSize: "11px",
-              textTransform: "uppercase",
-            }}>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.7)",
+                fontFamily: "var(--font-serif)",
+                letterSpacing: "0.5em",
+                fontSize: "11px",
+                textTransform: "uppercase",
+              }}
+            >
               Welcome to
             </p>
-            <h1 style={{
-              marginTop: "16px",
-              color: "rgba(255,255,255,0.85)",
-              fontFamily: "var(--font-serif)",
-              letterSpacing: "0.3em",
-              fontSize: "18px",
-              fontWeight: 300,
-              textTransform: "uppercase",
-            }}>
+            <h1
+              style={{
+                marginTop: "16px",
+                color: "rgba(255,255,255,0.85)",
+                fontFamily: "var(--font-serif)",
+                letterSpacing: "0.3em",
+                fontSize: "18px",
+                fontWeight: 300,
+                textTransform: "uppercase",
+              }}
+            >
               My Museum
             </h1>
           </div>
@@ -125,7 +127,7 @@ export default function Home() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 1200px) 50vw, 33vw"
-                    priority={post.slug === "delhi"}
+                    priority={index === 0}
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/10" />

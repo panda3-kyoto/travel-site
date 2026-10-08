@@ -42,7 +42,7 @@ export default async function NotePage({ params }: Props) {
     <main className="min-h-screen bg-white text-neutral-900 px-8 py-8 md:px-12 md:py-10">
       <header className="mb-20 flex items-center justify-between">
         <Link href="/notes" className="text-sm tracking-[0.12em] uppercase">
-          Notes
+          雑記
         </Link>
         <Link href="/" className="text-sm text-neutral-500">
           Home
